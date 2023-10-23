@@ -1,0 +1,32 @@
+version: "3.8"
+
+services:
+  webapp:
+    container_name: restaurant_voting
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file: .env
+    command: >
+      sh -c "python manage.py wait_for_db && \
+            python manage.py migrate && \
+            python manage.py runserver 0.0.0.0:8000"
+    ports:
+      - "${WEB_APP_PORT}:8000"
+    depends_on:
+      - postgres
+  postgres:
+    container_name: restaurant_voting_postgres
+    image: postgres:13.0
+    env_file: .env
+    restart: on-failure
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    environment:
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    ports:
+      - "${DOCKER_POSTGRES_PORT}:5432"
+
+volumes:
+  pgdata:
