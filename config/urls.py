@@ -15,8 +15,29 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+
+from drf_yasg import openapi
+from drf_yasg.views import get_schema_view
+from rest_framework import permissions
+
+schema_view = get_schema_view(
+    openapi.Info(
+        title="Restaurant Voting API",
+        default_version="3",
+        contact=openapi.Contact(email="milonmahato67@gmail.com")
+    ),
+    public=True,
+    permission_classes=[permissions.AllowAny],
+)
 
 urlpatterns = [
+    path(
+        '',
+        schema_view.with_ui('swagger'),
+        name='schema-swagger-ui'
+    ),
     path('admin/', admin.site.urls),
+    path('auth/', include('authentication.urls', namespace='authentication')),
+    path('user/', include('user.urls', namespace='user')),
 ]
