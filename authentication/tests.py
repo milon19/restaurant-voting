@@ -1,6 +1,8 @@
+import logging
+
 from datetime import timedelta
-from functools import partial
 from unittest import mock
+from functools import partial
 
 from django.contrib.auth import get_user_model
 
@@ -24,6 +26,7 @@ class TestAuthenticationCase(APITestCase):
     password = 'milon123'
 
     def setUp(self):
+        logging.getLogger('django').setLevel(logging.ERROR)
         self.user = User.objects.create_user(self.email, self.password)
 
     def _login(self):

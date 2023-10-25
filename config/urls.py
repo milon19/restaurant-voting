@@ -40,4 +40,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('auth/', include('authentication.urls', namespace='authentication')),
     path('user/', include('user.urls', namespace='user')),
+    path('restaurant/', include('restaurant.urls', namespace='restaurant')),
+    path('voting/', include('voting.urls', namespace='voting')),
 ]

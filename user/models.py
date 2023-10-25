@@ -1,7 +1,11 @@
+import logging
+
 from django.db import models
 from django.contrib.auth.models import (
     AbstractBaseUser, PermissionsMixin, BaseUserManager
 )
+
+logger = logging.getLogger('django')
 
 
 class UserManager(BaseUserManager):
@@ -33,3 +37,19 @@ class User(AbstractBaseUser, PermissionsMixin):
     EMAIL_FIELD = 'email'
 
     objects = UserManager()
+
+
+class EmployeeManager(models.Manager):
+
+    def create_employee(self, first_name, last_name, email, password):
+        user = User.objects.create_user(email=email, password=password)
+        employee = self.create(user=user, first_name=first_name, last_name=last_name)
+        return employee
+
+
+class Employee(models.Model):
+    user = models.OneToOneField(User, related_name='employee', on_delete=models.CASCADE)
+    first_name = models.CharField(max_length=255, null=True, blank=True)
+    last_name = models.CharField(max_length=255, null=True, blank=True)
+
+    objects = EmployeeManager()

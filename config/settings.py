@@ -14,6 +14,8 @@ from pathlib import Path
 from dotenv import load_dotenv
 from datetime import timedelta
 
+from django.utils.log import DEFAULT_LOGGING
+
 load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -54,6 +56,8 @@ INSTALLED_APPS = [
     'config',
     'user',
     'authentication',
+    'restaurant',
+    'voting',
 ]
 
 MIDDLEWARE = [
@@ -174,5 +178,32 @@ SWAGGER_SETTINGS = {
             'name': 'Authorization',
             'in': 'header'
         }
+    },
+}
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": True,
+    "formatters": {
+        "verbose": {
+            "format": "%(levelname)s %(asctime)s %(module)s "
+                      "%(process)d %(thread)d %(message)s"
+        },
+        'django.server': DEFAULT_LOGGING['formatters']['django.server'],
+    },
+    "handlers": {
+        "console": {
+            "level": "INFO",
+            "class": "logging.StreamHandler",
+            "formatter": "verbose",
+        },
+        'django.server': DEFAULT_LOGGING['handlers']['django.server'],
+    },
+    "loggers": {
+        'django': {
+            'handlers': ['console'],
+            'level': 'INFO',
+        },
+        'django.server': DEFAULT_LOGGING['loggers']['django.server'],
     },
 }
