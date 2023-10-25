@@ -66,3 +66,12 @@ Your project should be running.
 ### A database will be automatically created when you run with Docker (`init.sql`). If you want to run manually you need to create a database with `<POSTGRES_DB>` name.
 
 > NOTE: This installation is only used for development.
+
+## Note about project
+
+- All date times in the project are in UTC.
+- To run the test:
+
+```shell
+python manage.py test
+```
