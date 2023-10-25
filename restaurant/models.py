@@ -24,3 +24,6 @@ class Menu(models.Model):
     item = models.CharField(max_length=255)
 
     objects = MenuManager()
+
+    class Meta:
+        unique_together = ('restaurant', 'date')
