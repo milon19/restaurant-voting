@@ -63,7 +63,7 @@ pip install -r requirements.txt
 
 Your project should be running.
 
-### A database will be automatically created when you run with Docker (`init.sql`). If you want to run manually you need to create a database with `<POSTGRES_DB>` name.
+### A database will be automatically created when you run with Docker. If you want to run manually you need to create a database with `<POSTGRES_DB>` name.
 
 > NOTE: This installation is only used for development.
 

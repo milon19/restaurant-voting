@@ -4,7 +4,7 @@ from django.db.models import Count
 from django.utils import timezone
 
 from rest_framework.mixins import CreateModelMixin, ListModelMixin
-from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import GenericViewSet
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -26,9 +26,7 @@ class VotingViewSet(CreateModelMixin, ListModelMixin, GenericViewSet):
 
 
 class VotingResultAPIView(APIView):
-    permission_classes = [AllowAny]
-    serializer_class = VotingSerializer
-    queryset = Voting.objects.get_restaurants_with_votes_today()
+    permission_classes = [IsAuthenticated]
 
     @staticmethod
     def get_winners_to_exclude():
