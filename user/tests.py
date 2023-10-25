@@ -1,3 +1,5 @@
+import logging
+
 from django.urls import reverse
 from django.contrib.auth import get_user_model
 
@@ -11,6 +13,9 @@ User = get_user_model()
 
 class CreateEmployeeAPITestCase(APITestCase):
     api_url = reverse('user:create_employee')
+
+    def setUp(self):
+        logging.getLogger('django').setLevel(logging.ERROR)
 
     def test_create_employee(self):
 

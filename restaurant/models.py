@@ -1,9 +1,16 @@
 from django.db import models
+from django.utils import timezone
 
 
 class Restaurant(models.Model):
     name = models.CharField(max_length=255)
     address = models.CharField(max_length=255)
+
+
+class MenuManager(models.Manager):
+    def get_todays_menu(self):
+        today = timezone.now().date()
+        return self.filter(date=today)
 
 
 class Menu(models.Model):
@@ -15,3 +22,5 @@ class Menu(models.Model):
     ex: Mutton,Chicken,Fish
     '''
     item = models.CharField(max_length=255)
+
+    objects = MenuManager()
