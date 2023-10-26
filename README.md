@@ -75,3 +75,7 @@ Your project should be running.
 ```shell
 python manage.py test
 ```
+or
+```shell
+docker-compose run webapp python manage.py test
+```
